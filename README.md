@@ -23,6 +23,7 @@ The template will contain a few packages preinstalled. These libraries we will u
 Included in this file is the assets from the figma file pre-exported and a boilerplate Next.js project:
 *   Images
 *   Icons
+
 The typography makes use of **Cormorant Garamond** for headings and **Lato** for body text, both available through Google Fonts.
 
 ---
