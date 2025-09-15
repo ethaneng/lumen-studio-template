@@ -1,0 +1,1 @@
+export type { NavigationItem, BaseProps } from './global.types'
