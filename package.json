@@ -1,6 +1,7 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "lumen-studio",
+  "version": "1.0.0",
+  "description": "Professional photography portfolio website for Lumen Studio featuring modern animations and responsive design",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",

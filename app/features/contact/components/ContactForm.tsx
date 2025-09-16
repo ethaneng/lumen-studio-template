@@ -158,7 +158,7 @@ export default function ContactForm() {
     <div className="">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Row 1: First Name & Last Name */}
+          {/* Personal information fields */}
           <FormField
             name="firstName"
             label="First Name"
@@ -174,7 +174,7 @@ export default function ContactForm() {
             labelBackground="bg-muted"
           />
 
-          {/* Row 2: Email & Phone */}
+          {/* Contact information fields */}
           <FormField
             name="email"
             label="Email"
@@ -192,7 +192,7 @@ export default function ContactForm() {
             labelBackground="bg-muted"
           />
 
-          {/* Row 3: Message - Full Width */}
+          {/* Message field spans full width */}
           <div className="md:col-span-2">
             <FormField
               name="message"
@@ -205,7 +205,7 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* Submit Button - Centered */}
+          {/* Form submission */}
           <div className="md:col-span-2 flex justify-end pt-4">
             <Button
               type="submit"

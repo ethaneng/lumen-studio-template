@@ -9,6 +9,24 @@ import { useGSAP } from "@gsap/react";
 // Register plugins
 gsap.registerPlugin(useGSAP);
 
+/**
+ * Hero Section Component
+ *
+ * Full-screen landing section with coordinated entrance animations for text and images.
+ * Features a background image with gradient overlay and a floating image element.
+ *
+ * @component
+ * @example
+ * return (
+ *   <HeroSection />
+ * )
+ *
+ * @features
+ * - Coordinated timeline animations for text and image elements
+ * - Responsive layout with mobile-friendly text sizing
+ * - Optimized image loading with blur placeholder
+ * - Scroll indicator animation
+ */
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -18,61 +36,89 @@ export default function HeroSection() {
 
   useGSAP(
     () => {
-      const heading = headingRef.current;
-      const paragraph = paragraphRef.current;
-      const button = buttonRef.current;
-      const image = imageRef.current;
+      try {
+        const heading = headingRef.current;
+        const paragraph = paragraphRef.current;
+        const button = buttonRef.current;
+        const image = imageRef.current;
 
-      if (!heading || !paragraph || !button || !image) return;
+        if (!heading || !paragraph || !button || !image) {
+          console.warn("HeroSection: Some animation targets are not available");
+          return;
+        }
 
-      // Create timeline for coordinated hero entry animations
-      const tl = gsap.timeline({ delay: 0.3 }); // Small delay after page load
+        // Check for reduced motion preference
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
 
-      // Set initial states
-      gsap.set([heading, paragraph, button, image], {
-        opacity: 0,
-      });
-      gsap.set(heading, { y: 50 });
-      gsap.set(paragraph, { y: 30 });
-      gsap.set(image, { x: 50, scale: 1.05 });
-
-      // Animate elements in sequence
-      tl.to(heading, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power2.out",
-      })
-        .to(
-          paragraph,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-          },
-          "-=0.6",
-        )
-        .to(
-          button,
-          {
-            opacity: 1,
-            duration: 0.6,
-            ease: "power2.out",
-          },
-          "-=0.4",
-        )
-        .to(
-          image,
-          {
+        if (prefersReducedMotion) {
+          // Set elements to final state without animation
+          gsap.set([heading, paragraph, button, image], {
             opacity: 1,
             x: 0,
+            y: 0,
             scale: 1,
-            duration: 1.2,
-            ease: "power2.out",
-          },
-          "-=0.8",
-        );
+          });
+          return;
+        }
+
+        // Create timeline for coordinated hero entry animations
+        const tl = gsap.timeline({ delay: 0.3 });
+
+        // Set initial states
+        gsap.set([heading, paragraph, button, image], {
+          opacity: 0,
+        });
+        gsap.set(heading, { y: 50 });
+        gsap.set(paragraph, { y: 30 });
+        gsap.set(image, { x: 50, scale: 1.05 });
+
+        // Animate elements in sequence
+        tl.to(heading, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+        })
+          .to(
+            paragraph,
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: "power2.out",
+            },
+            "-=0.6",
+          )
+          .to(
+            button,
+            {
+              opacity: 1,
+              duration: 0.6,
+              ease: "power2.out",
+            },
+            "-=0.4",
+          )
+          .to(
+            image,
+            {
+              opacity: 1,
+              x: 0,
+              scale: 1,
+              duration: 1.2,
+              ease: "power2.out",
+            },
+            "-=0.8",
+          );
+      } catch (error) {
+        console.error("HeroSection animation error:", error);
+        // Fallback: ensure elements are visible
+        if (headingRef.current) headingRef.current.style.opacity = "1";
+        if (paragraphRef.current) paragraphRef.current.style.opacity = "1";
+        if (buttonRef.current) buttonRef.current.style.opacity = "1";
+        if (imageRef.current) imageRef.current.style.opacity = "1";
+      }
     },
     { scope: sectionRef },
   );

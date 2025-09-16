@@ -103,16 +103,16 @@ export default function GallerySection() {
             View Full Gallery
           </Button>
         </div>
-        {/* Swiper Carousel - Outside container for wider span */}
+        {/* Full-width carousel for visual impact */}
         <div className="mb-10 md:mb-20 overflow-hidden">
           <SwiperCarousel />
         </div>
 
-        {/* Text content - Inside container */}
+        {/* Descriptive text content */}
         <div className="container mx-auto px-4">
           <p
             ref={paragraphRef}
-            className="text-secondary-foreground max-w-full md:max-w-1/2 text-balance text-lg md:text-base"
+            className="text-secondary-foreground max-w-full md:max-w-1/2 text-balance"
           >
             At Lumen Studio, we believe photography should feel effortless. From
             start to finish, we create a relaxed, natural environment where

@@ -9,6 +9,24 @@ import { NAVIGATION_ITEMS } from "../../../../shared/utils";
 // Register plugins
 gsap.registerPlugin(useGSAP);
 
+/**
+ * Mobile Menu Component
+ *
+ * Animated hamburger menu for mobile navigation with smooth GSAP transitions.
+ * Features height-based expansion with staggered item animations.
+ *
+ * @component
+ * @example
+ * return (
+ *   <MobileMenu />
+ * )
+ *
+ * @features
+ * - GSAP timeline animations for smooth menu transitions
+ * - White hamburger icon for visibility against dark backgrounds
+ * - Staggered navigation item entrance animations
+ * - Automatic menu close on navigation item click
+ */
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -20,6 +38,9 @@ export function MobileMenu() {
     const nav = navRef.current;
 
     if (!menu || !nav) return;
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // Create timeline for menu animations
     const tl = gsap.timeline({ paused: true });
@@ -36,20 +57,37 @@ export function MobileMenu() {
       opacity: 0,
     });
 
-    // Animation sequence
-    tl.to(menu, {
-      height: "auto",
-      opacity: 1,
-      duration: 0.2,
-      ease: "power2.out",
-    })
-    .to(navItems, {
-      y: 0,
-      opacity: 1,
-      duration: 0.25,
-      stagger: 0.05,
-      ease: "power2.out",
-    }, "-=0.15");
+    // Animation sequence (or instant if reduced motion is preferred)
+    if (prefersReducedMotion) {
+      // Simplified animation for reduced motion
+      tl.to(menu, {
+        height: "auto",
+        opacity: 1,
+        duration: 0.1,
+        ease: "power2.out",
+      })
+      .to(navItems, {
+        y: 0,
+        opacity: 1,
+        duration: 0.1,
+        ease: "power2.out",
+      }, 0.05);
+    } else {
+      // Full animation for normal preference
+      tl.to(menu, {
+        height: "auto",
+        opacity: 1,
+        duration: 0.2,
+        ease: "power2.out",
+      })
+      .to(navItems, {
+        y: 0,
+        opacity: 1,
+        duration: 0.25,
+        stagger: 0.05,
+        ease: "power2.out",
+      }, "-=0.15");
+    }
 
     timelineRef.current = tl;
   }, { scope: menuRef });
