@@ -74,7 +74,7 @@ export default function ContactSection() {
         <div className="mb-8 md:mb-12">
           <h1
             ref={headingRef}
-            className="text-primary font-heading font-bold text-8xl md:text-8xl lg:text-9xl tracking-tighter"
+            className="text-primary font-heading font-bold text-6xl md:text-7xl lg:text-9xl tracking-tighter"
           >
             Send us a message
           </h1>
