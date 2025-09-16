@@ -83,9 +83,9 @@ export function Footer() {
           </nav>
         </div>
       </div>
-      <div className="flex py-8 container mx-auto text-secondary font-light items-center justify-end gap-2">
+      <div className="flex flex-col md:flex-row py-8 container mx-auto px-4 text-secondary font-light items-center justify-center md:justify-end gap-2 text-center md:text-left">
         <p>Site by Word Of Mouth Agency</p>
-        <span>|</span>
+        <span className="hidden md:inline">|</span>
         <p>© 2025 Lumen Studio. All rights reserved</p>
       </div>
     </footer>
